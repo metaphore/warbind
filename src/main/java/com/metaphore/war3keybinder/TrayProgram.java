@@ -32,7 +32,7 @@ public class TrayProgram implements KeyBinds.Listener {
 
         setUpTray();
 
-        keyBinds.switchBindings();
+//        keyBinds.switchBindings();
     }
 
     private void setUpTray() {

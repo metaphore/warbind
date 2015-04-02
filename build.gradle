@@ -19,7 +19,21 @@ task prodJar(type: Jar) {
         attributes "Main-Class": "com.metaphore.war3keybinder.TrayProgram"
     }
 
-    baseName = 'warbind'
+    prodJar.archiveName = 'warbind.jar'
+    ext.prodDir = 'prod_out'
+
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+prodJar.doLast {
+    copy {
+        from prodJar.archivePath
+        into prodDir
+    }
+
+    copy {
+        from 'keybinds.txt'
+        into prodDir
+    }
 }
