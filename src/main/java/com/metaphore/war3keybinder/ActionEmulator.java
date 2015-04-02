@@ -90,15 +90,19 @@ public class ActionEmulator {
     }
 
     public void performClick(int x, int y) {
-        Point location = MouseInfo.getPointerInfo().getLocation();
+        Point origLoc = MouseInfo.getPointerInfo().getLocation();
 
         robot.mouseMove(x, y);
         robot.mousePress(InputEvent.BUTTON1_MASK);
-        for (int i = 0; i < 30; i++) {
-            robot.delay(1);
-            robot.mouseMove(x, y);
-        }
+        robot.delay(30);
+
+        Point currLoc = MouseInfo.getPointerInfo().getLocation();
+        int devX = currLoc.x - x;
+        int devY = currLoc.y - y;
+
+        robot.mouseMove(x, y);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
-        robot.mouseMove(location.x, location.y);
+
+        robot.mouseMove(origLoc.x + devX, origLoc.y + devY);
     }
 }

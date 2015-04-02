@@ -3,19 +3,12 @@ package com.metaphore.war3keybinder;
 import com.melloware.jintellitype.HotkeyListener;
 import com.melloware.jintellitype.IntellitypeListener;
 import com.melloware.jintellitype.JIntellitype;
-import com.metaphore.war3keybinder.utils.Log;
-import com.metaphore.war3keybinder.utils.ResourceUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import java.io.*;
 import java.util.*;
 
 public class KeyBinds implements HotkeyListener, IntellitypeListener {
-    private static final String LOG_TAG = "KeyBinds";
     private static final int ID_SWITCH = 1;
 
     private final Map<Integer, Action> actionMap;
@@ -59,7 +52,7 @@ public class KeyBinds implements HotkeyListener, IntellitypeListener {
         try {
             InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(libName);
             byte[] buffer = new byte[1024];
-            int read = -1;
+            int read;
             temp = File.createTempFile(libName, "");
             FileOutputStream fos = new FileOutputStream(temp);
 
@@ -101,7 +94,7 @@ public class KeyBinds implements HotkeyListener, IntellitypeListener {
 
         String[] split = StringUtils.split(line, ':');
         if (split.length != 2) {
-            Log.i(LOG_TAG, "Empty keybind or wrong format: " + line);
+            System.out.println("Empty keybind or wrong format: " + line);
             return;
         }
 

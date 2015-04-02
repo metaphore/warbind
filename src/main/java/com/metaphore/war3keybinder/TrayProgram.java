@@ -1,6 +1,6 @@
 package com.metaphore.war3keybinder;
 
-import com.metaphore.war3keybinder.utils.ResourceUtils;
+import com.metaphore.war3keybinder.utils.Utils;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -31,6 +31,8 @@ public class TrayProgram implements KeyBinds.Listener {
         }
 
         setUpTray();
+
+        keyBinds.switchBindings();
     }
 
     private void setUpTray() {
@@ -56,20 +58,7 @@ public class TrayProgram implements KeyBinds.Listener {
     @Override
     public void onKeyBindsEnabledChanged(boolean enabled) {
         trayIcon.setImage(enabled ? iconOn : iconOff);
-        playSound(enabled ? "on.wav" : "off.wav");
-    }
-
-    private void playSound(String fileName) {
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(TrayProgram.class.getResource("/sounds/" + fileName));
-            clip.open(inputStream);
-            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
-            clip.start();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        Utils.playSound(enabled ? "on.wav" : "off.wav");
     }
 
     public static void main(String[] args) {

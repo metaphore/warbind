@@ -1,6 +1,7 @@
 package com.metaphore.war3keybinder;
 
 import com.esotericsoftware.tablelayout.swing.Table;
+import com.metaphore.war3keybinder.utils.Utils;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -44,6 +45,8 @@ public class MainFrame extends JFrame implements KeyBinds.Listener {
         txtLabel.setForeground(enabled ? new Color(0.15f, 0.65f, 0.15f) : new Color(0.75f, 0.25f, 0.25f));
         setIconImage(enabled ? iconOn : iconOff);
         trayIcon.setImage(enabled ? iconOn : iconOff);
+
+        Utils.playSound(enabled ? "on.wav" : "off.wav");
     }
 
     private void initializeComponents() {
