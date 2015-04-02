@@ -1,0 +1,21 @@
+# Inventory items
+inv1: r
+inv2: t
+inv3: f
+inv4: g
+inv5: 
+inv6: 
+
+# Ability buttons (7 is "+" button, after you lvlup all skills some of them will place in this slot)
+abil1: a
+abil2: s
+abil3: d
+abil4: q
+abil5: w
+abil6: e
+abil7: z
+
+# Common actions
+attack: space
+stop: shift
+hold: shift+space
