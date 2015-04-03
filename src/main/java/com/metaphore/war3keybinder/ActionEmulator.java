@@ -94,7 +94,7 @@ public class ActionEmulator {
 
         robot.mouseMove(x, y);
         robot.mousePress(InputEvent.BUTTON1_MASK);
-        robot.delay(30);
+        robot.delay(5);
 
         Point currLoc = MouseInfo.getPointerInfo().getLocation();
         int devX = currLoc.x - x;
