@@ -3,6 +3,7 @@ package com.metaphore.war3keybinder;
 import com.melloware.jintellitype.HotkeyListener;
 import com.melloware.jintellitype.IntellitypeListener;
 import com.melloware.jintellitype.JIntellitype;
+import com.metaphore.war3keybinder.utils.Utils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
@@ -48,25 +49,8 @@ public class KeyBinds implements HotkeyListener, IntellitypeListener {
         }
         System.out.println("libName = " + libName);
 
-        File temp;
-        try {
-            InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(libName);
-            byte[] buffer = new byte[1024];
-            int read;
-            temp = File.createTempFile(libName, "");
-            FileOutputStream fos = new FileOutputStream(temp);
-
-            while((read = in.read(buffer)) != -1) {
-                fos.write(buffer, 0, read);
-            }
-            fos.close();
-            in.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-//            System.out.println("temp absolute: " + temp.getAbsolutePath());
-        JIntellitype.setLibraryLocation(temp.getAbsolutePath());
+        File libFile = Utils.copyToTempFile(libName);
+        JIntellitype.setLibraryLocation(libFile.getAbsolutePath());
         return JIntellitype.getInstance();
     }
 

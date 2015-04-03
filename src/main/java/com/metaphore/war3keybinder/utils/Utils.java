@@ -5,6 +5,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Utils {
     public static File get(String path) {
@@ -23,5 +26,28 @@ public class Utils {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public static File copyToTempFile(String resourcePath) {
+        File temp;
+        try {
+            InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(resourcePath);
+            byte[] buffer = new byte[1024];
+            int read;
+            temp = File.createTempFile(resourcePath, "");
+            FileOutputStream fos = new FileOutputStream(temp);
+
+            while((read = in.read(buffer)) != -1) {
+                fos.write(buffer, 0, read);
+            }
+            fos.close();
+            in.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //TODO close on finally
+
+        return temp;
     }
 }

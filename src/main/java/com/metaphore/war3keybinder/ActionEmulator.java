@@ -1,5 +1,7 @@
 package com.metaphore.war3keybinder;
 
+import com.metaphore.NativeInput;
+
 import java.awt.*;
 import java.awt.event.InputEvent;
 
@@ -7,11 +9,14 @@ public class ActionEmulator {
     private final int screenWidth;
     private final int screenHeight;
     private final Robot robot;
+    private final NativeInput nativeInput;
 
     public ActionEmulator() {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         screenWidth = gd.getDisplayMode().getWidth();
         screenHeight = gd.getDisplayMode().getHeight();
+
+        nativeInput = new NativeInput();
 
         try {
             robot = new Robot();
@@ -91,18 +96,10 @@ public class ActionEmulator {
 
     public void performClick(int x, int y) {
         Point origLoc = MouseInfo.getPointerInfo().getLocation();
-
         robot.mouseMove(x, y);
         robot.mousePress(InputEvent.BUTTON1_MASK);
-        robot.delay(5);
-
-        Point currLoc = MouseInfo.getPointerInfo().getLocation();
-        int devX = currLoc.x - x;
-        int devY = currLoc.y - y;
-
-        robot.mouseMove(x, y);
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
-
-        robot.mouseMove(origLoc.x + devX, origLoc.y + devY);
+        nativeInput.performClick(origLoc.x, origLoc.y);
+        robot.mouseMove(origLoc.x, origLoc.y);
     }
 }
