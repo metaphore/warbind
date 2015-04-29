@@ -2,16 +2,14 @@
 
 #include <jni.h>
 #include <stdio.h>	//remove?
-#include <Windows.h>
-#include <winable.h>
-#include <iostream>
+#include <windows.h>
 #include "NativeInput.h"
 
 using namespace std;
 
 // Implementation of native method sayHello() of HelloJNI class
 JNIEXPORT void JNICALL Java_com_metaphore_NativeInput_performClick(JNIEnv *env, jobject thisObj, jint x, jint y) {
-	cout << "performing click " << x << ":" << y << endl;
+//	cout << "performing click " << x << ":" << y << endl;
 	
 	// fflush(stdout);
 	// POINT p;
